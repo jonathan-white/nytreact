@@ -12,6 +12,7 @@ const SearchScreen = props => (
 					<input 
 						className="form-control"
 						type="text"
+						value={props.prevState.topic}
 						id="topic"
 						name="topic"
 						placeholder="Enter a topic"
@@ -23,6 +24,7 @@ const SearchScreen = props => (
 					<input 
 						className="form-control"
 						type="date"
+						value={props.prevState.startYear}
 						id="startYear"
 						name="startYear"
 						onChange={props.handleInputChange}
@@ -33,12 +35,20 @@ const SearchScreen = props => (
 					<input 
 						className="form-control"
 						type="date"
+						value={props.prevState.endYear}
 						id="endYear"
 						name="endYear"
 						onChange={props.handleInputChange}
 					/>
 				</div>	
-				<button className="btn btn-primary search" type="submit" onClick={props.handleFormSubmit}>Search</button>
+				<button 
+					disabled={!(props.prevState.topic && 
+						props.prevState.startYear && 
+						props.prevState.endYear)}
+					className="btn btn-primary search" 
+					type="submit" 
+					onClick={props.handleFormSubmit}
+				>Search</button>
 			</form>
 		
 		</div>

@@ -65,16 +65,16 @@
   text-decoration: none;
 }
 
-.hide {
-  display: none;
+.article .card-body {
+  position: relative;
+  height: 0px;
+  opacity: 0;
+  transition: height 1s ease, opacity .5s ease-in;
 }
 
 .article:hover .card-body {
-  display: block;
-}
-
-.article .save {
-
+  height: 200px;
+  opacity: 1;
 }
 
 @keyframes App-logo-spin {

@@ -10,12 +10,12 @@ class Home extends Component{
 			topic: "",
 			startYear: "",
 			endYear: "",
-			results: []
+			results: [],
 		}
 	};
 
 	searchNYT = (query) => {
-		API.getArticles(query)
+		API.getNewArticles(query)
 			.then(res => {
 				this.setState({ results: res.data.response.docs });
 				console.log(res.data.response);
@@ -25,9 +25,6 @@ class Home extends Component{
 
 	handleInputChange = event => {
 		const {name, value} = event.target;
-
-		console.log(value);
-		
 		this.setState({
 			[name]: value
 		});
@@ -35,20 +32,30 @@ class Home extends Component{
 
 	handleFormSubmit = event => {
 		event.preventDefault();
-		const query = {
-			topic: this.state.topic,
-			startYear: this.state.startYear,
-			endYear: this.state.endYear
-		};
-		this.searchNYT(query);
+		if(this.state.topic && this.state.startYear && this.state.endYear) {
+			const query = {
+				topic: this.state.topic,
+				startYear: this.state.startYear,
+				endYear: this.state.endYear
+			};
+			this.searchNYT(query);
+		}
 	};
 
-	handleSaveClick = () => {
-
-	};
-
-	componentDidMount = () => {
-		// this.searchNYT("The Matrix");
+	handleSaveClick = (articleEntry) => {
+		API.saveArticle({
+			headline: articleEntry.headline.print_headline,
+			snippet: articleEntry.snippet,
+			web_url: articleEntry.web_url,
+			source: articleEntry.source,
+			section_name: articleEntry.section_name || "",
+			pub_date: articleEntry.pub_date,
+		})
+		.then(res => {
+			// Save successful
+			console.log(res.data);
+		})
+		.catch(err => console.log(err));
 	};
 
 	render(){
@@ -57,6 +64,7 @@ class Home extends Component{
 				<section className="row d-flex justify-content-center">
 					<div className="col-12">
 						<SearchScreen 
+							prevState={this.state}
 							handleInputChange={this.handleInputChange}
 							handleFormSubmit={this.handleFormSubmit}
 						/>
