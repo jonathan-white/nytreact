@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import moment from 'moment';
-import API from '../utils/API';
-import io from 'socket.io-client';
-const socket = io('http://localhost:3000');
 
 class NewArticle extends Component {
 	constructor(props){

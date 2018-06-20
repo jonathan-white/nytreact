@@ -35,8 +35,7 @@ io.on('connection', function(socket) {
 		console.log('user disconnected');
 	});
 
-	// Listen for savedArticle event, then emit the save message to 
-	// all clients
+	// Listen for savedArticle event, then emit the save message to all clients
 	socket.on('savedArticle', (msg) => {
 		console.log('socket.io message: ' + msg);
 		socket.emit('savedArticle', msg);
