@@ -10,7 +10,6 @@ class Saved extends Component{
 		}
 	};
 
-
 	componentDidMount = () => {
 		this.loadSavedArticles();
 	};

@@ -20,7 +20,7 @@ const ResultsScreen = props => (
 				}
 				</ul>
 			) : 
-			(<p>No Results</p>)
+			(<p>No Results.</p>)
 			}
 		</div>
 	</div>
