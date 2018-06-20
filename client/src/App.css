@@ -29,10 +29,13 @@
 
 .search {
   padding: 20px 40px;
+}
+
+.search.active {
   box-shadow: 5px 5px 0 rgba(0,0,0,.3);
 }
 
-.search:hover {
+.search.active:hover {
   transform: translateY(1px);
   box-shadow: 2px 2px 0 rgba(0,0,0,.3);
 }
@@ -80,6 +83,18 @@
 
 .popup {
   animation: fadeFromView 3s 3s ease forwards;
+}
+
+.close-btn {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  cursor: pointer;
+}
+
+.save {
+  width: 78px;
+  height: 49px;
 }
 
 @keyframes App-logo-spin {

@@ -1,8 +1,11 @@
 import React from 'react';
 
 const Alert = props => (
-	<div className={`alert ${props.classes}`}>
-		{props.message}
+	<div id="alert-popup" className={`alert ${props.classes}`}>
+		<div>{props.message}</div>
+		<span className="close-btn" onClick={props.handleClose}>
+			<i className="fas fa-times-circle"></i>
+		</span>
 	</div>
 );
 

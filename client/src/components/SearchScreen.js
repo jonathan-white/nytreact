@@ -45,7 +45,9 @@ const SearchScreen = props => (
 					disabled={!(props.prevState.topic && 
 						props.prevState.startYear && 
 						props.prevState.endYear)}
-					className="btn btn-primary search" 
+					className={`btn btn-primary ${(props.prevState.topic && 
+						props.prevState.startYear && 
+						props.prevState.endYear) ? 'search active' : 'search'}`} 
 					type="submit" 
 					onClick={props.handleFormSubmit}
 				>Search</button>

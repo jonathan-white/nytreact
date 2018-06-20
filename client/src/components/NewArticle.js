@@ -8,34 +8,16 @@ class NewArticle extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-
+			saved: 0
 		}
 	};
 
-	handleSaveClick = (articleEntry) => {
-		API.saveArticle({
-			headline: articleEntry.headline.print_headline,
-			snippet: articleEntry.snippet,
-			web_url: articleEntry.web_url,
-			source: articleEntry.source,
-			section_name: articleEntry.section_name || "",
-			pub_date: articleEntry.pub_date,
-		})
-		.then(res => {
-
-			// Trigger savedArticle event
-			socket.emit('savedArticle', articleEntry.headline.print_headline);
-		})
-		.catch(err => console.log(err));
+	registerSave = () => {
+		this.setState({ saved: 1 })
 	};
 
 	render() {
-		socket.on('savedArticle', (msg) => {
-			console.log('Home - render: '+ msg);
-			this.setState({
-				message: msg
-			})
-		});
+
 		return (
 			<div className="card article">
 				<div className="card-header">
@@ -46,8 +28,13 @@ class NewArticle extends Component {
 					</a>
 					<button 
 						className="btn btn-success save" 
-						onClick={() => this.props.handleSaveClick(this.props.article)}
-					>Save</button>
+						onClick={() => {
+							this.props.handleSaveClick(this.props.article);
+							this.registerSave();
+						}}
+					>
+					{this.state.saved ? (<i className="fas fa-check-circle fa-2x"></i>) : 'Save'}
+					</button>
 				</div>
 				<div className="card-body">
 					<div>

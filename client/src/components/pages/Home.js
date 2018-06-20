@@ -16,18 +16,8 @@ class Home extends Component{
 			results: [],
 			saveStatus: 0,
 			message: "",
-			endpoint: "http://localhost:3000",
 		}
 	};
-
-	componentDidMount = () => {
-		socket.on('notification', (msg) => {
-			console.log('Saved: '+ msg);
-			this.setState({
-				message: msg
-			})
-		});
-	}
 
 	searchNYT = (query) => {
 		API.getNewArticles(query)
@@ -70,7 +60,10 @@ class Home extends Component{
 
 			// Trigger savedArticle event
 			socket.emit('savedArticle', articleEntry.headline.print_headline);
-			this.setState({ saveStatus: 1});
+			this.setState({ 
+				saveStatus: 1,
+				message: ""
+			});
 		})
 		.catch(err => {
 			if(err.response.status === 409) {
@@ -83,6 +76,8 @@ class Home extends Component{
 		});
 	};
 
+	removeAlert = () => this.setState({ saveStatus: 0 })
+
 	render(){
 		socket.on('savedArticle', (msg) => {
 			console.log('Home - render: '+ msg);
@@ -94,13 +89,25 @@ class Home extends Component{
 		return (
 			<div className="container">
 				{this.state.saveStatus === 1 && 
-					<Alert message={`Saved: ${this.state.message}`} classes={'alert-primary'}/>
+					<Alert 
+						message={`Saved: ${this.state.message}`} 
+						classes={'alert-primary'}
+						handleClose={() => this.removeAlert()}
+					/>
 				}
 				{this.state.saveStatus === 2 && 
-					<Alert message={`This article has already been saved!`} classes={'alert-warning'}/>
+					<Alert 
+						message={`This article has already been saved!`} 
+						classes={'alert-warning'}
+						handleClose={() => this.removeAlert()}
+					/>
 				}
 				{this.state.saveStatus === 3 && 
-					<Alert message={`Error occurred while saving. Try again later.`} classes={'alert-danger'}/>
+					<Alert 
+						message={`Error occurred while saving. Try again later.`} 
+						classes={'alert-danger'}
+						handleClose={() => this.removeAlert()}
+					/>
 				}
 				<section className="row d-flex justify-content-center">
 					<div className="col-12">
