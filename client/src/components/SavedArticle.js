@@ -11,7 +11,7 @@ const SavedArticle = props => (
 			</a>
 			<button className="btn btn-danger remove" onClick={props.handleRemoveClick}>Remove</button>
 		</div>
-		<div className="card-body hide">
+		<div className="card-body">
 			<div>
 				<p>{props.article.snippet}</p>
 			</div>

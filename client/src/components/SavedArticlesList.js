@@ -15,7 +15,7 @@ class SavedArticlesCard extends Component{
 				<div className="card-header">
 					<h2>Saved Articles</h2>
 				</div>
-				<div className="card-body">
+				<div className="card-body" style={{minHeight: (142 * this.props.articles.length + 150)}}>
 					{this.props.articles.length ? (
 						<ul className="article-list">
 						{this.props.articles.map(article => (

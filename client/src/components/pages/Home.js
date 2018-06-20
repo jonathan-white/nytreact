@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import SearchScreen from '../SearchScreen';
 import ResultsScreen from '../ResultsScreen';
+import Alert from '../Alert';
 import API from '../../utils/API';
+import io from 'socket.io-client';
+const socket = io('http://localhost:3000');
 
 class Home extends Component{
 	constructor(props){
@@ -11,8 +14,20 @@ class Home extends Component{
 			startYear: "",
 			endYear: "",
 			results: [],
+			saveStatus: 0,
+			message: "",
+			endpoint: "http://localhost:3000",
 		}
 	};
+
+	componentDidMount = () => {
+		socket.on('notification', (msg) => {
+			console.log('Saved: '+ msg);
+			this.setState({
+				message: msg
+			})
+		});
+	}
 
 	searchNYT = (query) => {
 		API.getNewArticles(query)
@@ -52,15 +67,41 @@ class Home extends Component{
 			pub_date: articleEntry.pub_date,
 		})
 		.then(res => {
-			// Save successful
-			console.log(res.data);
+
+			// Trigger savedArticle event
+			socket.emit('savedArticle', articleEntry.headline.print_headline);
+			this.setState({ saveStatus: 1});
 		})
-		.catch(err => console.log(err));
+		.catch(err => {
+			if(err.response.status === 409) {
+				// Duplicate save request received
+				this.setState({ saveStatus: 2});
+			} else {
+				// All other server http error statuses
+				this.setState({ saveStatus: 3});
+			}
+		});
 	};
 
 	render(){
+		socket.on('savedArticle', (msg) => {
+			console.log('Home - render: '+ msg);
+			this.setState({
+				message: msg
+			})
+		});
+
 		return (
 			<div className="container">
+				{this.state.saveStatus === 1 && 
+					<Alert message={`Saved: ${this.state.message}`} classes={'alert-primary'}/>
+				}
+				{this.state.saveStatus === 2 && 
+					<Alert message={`This article has already been saved!`} classes={'alert-warning'}/>
+				}
+				{this.state.saveStatus === 3 && 
+					<Alert message={`Error occurred while saving. Try again later.`} classes={'alert-danger'}/>
+				}
 				<section className="row d-flex justify-content-center">
 					<div className="col-12">
 						<SearchScreen 

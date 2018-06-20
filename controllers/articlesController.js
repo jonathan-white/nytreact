@@ -19,7 +19,17 @@ module.exports = {
     db.Article
       .create(req.body)
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .catch(err => {
+        console.log(err);
+
+        // If users try to save an article that has already
+        // been saved, return 409 Conflict
+        if(err.code === 11000) {
+          res.status(409).json(err);
+        } else {
+          res.status(422).json(err);
+        }
+      });
   },
   update: function(req, res) {
     db.Article

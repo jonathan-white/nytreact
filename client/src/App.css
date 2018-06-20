@@ -67,17 +67,27 @@
 
 .article .card-body {
   position: relative;
-  height: 0px;
-  opacity: 0;
-  transition: height 1s ease, opacity .5s ease-in;
 }
 
-.article:hover .card-body {
-  height: 200px;
-  opacity: 1;
+.alert {
+  margin-top: 20px;
+  position: fixed;
+  top: 10px;
+  z-index: 1;
+  right: 20px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+}
+
+.popup {
+  animation: fadeFromView 3s 3s ease forwards;
 }
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@keyframes fadeFromView {
+  from { opacity: 1 }
+  to { opacity: 0 }
 }
