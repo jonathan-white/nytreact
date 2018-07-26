@@ -11,6 +11,9 @@ export default {
         "end_date": query.endYear,
         "api-key": process.env.REACT_APP_NYT_API_KEY,
         "sort": "newest"
+      },
+      headers: {
+        'Access-Control-Allow-Origin': '*'
       }
     });
   },
