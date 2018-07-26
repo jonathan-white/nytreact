@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-const SavedArticle = props => (
+const SavedArticle = (props) => (
 	<div className="card article">
 		<div className="card-header">
 			<a href={props.article.web_url} target="_blank">

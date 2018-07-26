@@ -29,8 +29,8 @@ const Header = () => (
     </nav>
     <header className="App-header jumbotron-fluid">
       <h1 className="App-title">New York Times Article Scrubber</h1>
-      <p>Search for and annotate articles of interest!</p>
-    </header>    
+      <p>Search articles of interest!</p>
+    </header>
   </div>
 );
 

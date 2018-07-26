@@ -1,6 +1,4 @@
 import axios from "axios";
-import io from 'socket.io-client';
-const socket = io('http://localhost:3000');
 
 const BASEURL = "http://api.nytimes.com/svc/search/v2/articlesearch.json";
 
@@ -31,9 +29,5 @@ export default {
   // Saves a Article to the database
   saveArticle: (articleData) => {
     return axios.post("/api/articles", articleData);
-  },
-  sendMessage: (message) => {
-    console.log('Inside client sendMessage');
-    socket.emit('saveArticle', message);
   }
 };

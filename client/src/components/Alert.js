@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Alert = props => (
+const Alert = (props) => (
 	<div id="alert-popup" className={`alert ${props.classes}`}>
 		<div>{props.message}</div>
 		<span className="close-btn" onClick={props.handleClose}>

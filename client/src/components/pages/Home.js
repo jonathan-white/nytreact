@@ -3,7 +3,9 @@ import SearchScreen from '../SearchScreen';
 import ResultsScreen from '../ResultsScreen';
 import Alert from '../Alert';
 import API from '../../utils/API';
+import moment from 'moment';
 import io from 'socket.io-client';
+
 const socket = io('http://localhost:3000');
 
 class Home extends Component{
@@ -11,8 +13,8 @@ class Home extends Component{
 		super(props);
 		this.state = {
 			topic: "",
-			startYear: "",
-			endYear: "",
+			startYear: moment().add(-7, 'days').format('YYYY-MM-DD') || "",
+			endYear: moment().format('YYYY-MM-DD') || "",
 			results: [],
 			saveStatus: 0,
 			message: "",
@@ -23,7 +25,6 @@ class Home extends Component{
 		API.getNewArticles(query)
 			.then(res => {
 				this.setState({ results: res.data.response.docs });
-				console.log(res.data.response);
 			})
 			.catch(err => console.log(err));
 	};
@@ -60,7 +61,7 @@ class Home extends Component{
 
 			// Trigger savedArticle event
 			socket.emit('savedArticle', articleEntry.headline.print_headline);
-			this.setState({ 
+			this.setState({
 				saveStatus: 1,
 				message: ""
 			});
@@ -88,30 +89,30 @@ class Home extends Component{
 
 		return (
 			<div className="container">
-				{this.state.saveStatus === 1 && 
-					<Alert 
-						message={`Saved: ${this.state.message}`} 
+				{this.state.saveStatus === 1 &&
+					<Alert
+						message={`Saved: ${this.state.message}`}
 						classes={'alert-primary'}
 						handleClose={() => this.removeAlert()}
 					/>
 				}
-				{this.state.saveStatus === 2 && 
-					<Alert 
-						message={`This article has already been saved!`} 
+				{this.state.saveStatus === 2 &&
+					<Alert
+						message={`This article has already been saved!`}
 						classes={'alert-warning'}
 						handleClose={() => this.removeAlert()}
 					/>
 				}
-				{this.state.saveStatus === 3 && 
-					<Alert 
-						message={`Error occurred while saving. Try again later.`} 
+				{this.state.saveStatus === 3 &&
+					<Alert
+						message={`Error occurred while saving. Try again later.`}
 						classes={'alert-danger'}
 						handleClose={() => this.removeAlert()}
 					/>
 				}
 				<section className="row d-flex justify-content-center">
 					<div className="col-12">
-						<SearchScreen 
+						<SearchScreen
 							prevState={this.state}
 							handleInputChange={this.handleInputChange}
 							handleFormSubmit={this.handleFormSubmit}
@@ -120,7 +121,7 @@ class Home extends Component{
 				</section>
 				<section className="row d-flex justify-content-center">
 					<div className="col-12">
-						<ResultsScreen 
+						<ResultsScreen
 							results={this.state.results}
 							handleSaveClick={this.handleSaveClick}
 						/>
