@@ -6,7 +6,6 @@ const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 require("dotenv").config();
-// No update
 
 // Socket.io
 const server = require('http').Server(app);
