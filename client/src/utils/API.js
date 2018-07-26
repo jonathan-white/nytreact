@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASEURL = "http://api.nytimes.com/svc/search/v2/articlesearch.json";
+const BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 
 export default {
   getNewArticles: (query) => {
