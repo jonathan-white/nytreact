@@ -5,9 +5,7 @@ var Schema = mongoose.Schema;
 
 // Create article schema
 var NoteSchema = new Schema({
-	// `noteText` is required and of type String
 	noteText: {type: String, required: true},
-	// `date` defaults to Date.now and is of type Date
 	date: {type: Date, default: Date.now}
 });
 

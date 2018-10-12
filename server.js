@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // If deployed, use the deployed database. Otherwise use the local nytreact database
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/nytreact");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/nytreact", { useNewUrlParser: true });
 
 // Config socket.io
 io.on('connection', function(socket) {

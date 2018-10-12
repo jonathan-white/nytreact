@@ -1,6 +1,10 @@
 import axios from "axios";
 
-const BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+const BASEURL = (process.env.NODE_ENV === "development") 
+	? "https://cors-anywhere.herokuapp.com/api.nytimes.com/svc/search/v2/articlesearch.json"
+	: "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+
+// const BASEURL = "https://cors-anywhere.herokuapp.com/api.nytimes.com/svc/search/v2/articlesearch.json";
 
 export default {
   getNewArticles: (query) => {
