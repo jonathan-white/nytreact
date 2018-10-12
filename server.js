@@ -5,6 +5,7 @@ const logger = require("morgan");
 const routes = require("./routes");
 const path = require("path");
 const app = express();
+const cors = require("cors");
 const PORT = process.env.PORT || 3001;
 require("dotenv").config();
 
@@ -12,6 +13,7 @@ require("dotenv").config();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+app.use(cors());
 app.use(logger("dev"));
 
 // Setup data parsing Middleware
