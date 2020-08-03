@@ -1,6 +1,6 @@
 {
   "name": "nytreact",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "NYT React Search",
   "main": "server.js",
   "repository": {
@@ -16,13 +16,13 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
-    "moment": "^2.24.0",
-    "mongoose": "^5.5.14",
-    "morgan": "^1.9.1",
-    "socket.io": "^2.2.0"
+    "moment": "^2.27.0",
+    "mongoose": "^5.9.26",
+    "morgan": "^1.10.0",
+    "socket.io": "^2.3.0"
   },
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
@@ -34,7 +34,7 @@
     "heroku-postbuild": "npm run build"
   },
   "devDependencies": {
-    "concurrently": "^4.1.0",
-    "nodemon": "^1.19.1"
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.4"
   }
 }
